@@ -3,24 +3,69 @@
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1" name="viewport">
+  <!-- JQuery for updating scroll bar -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <title>Decentralized chat</title>
   <style>
-	p{text-shadow: 0 0px 30px #00ff9f;letter-spacing:1px;text-align:center;font-family:Tomorrow,monospace,serif;color:#00ff9f 	;font-size:1.4rem}
-#input { border-bottom: 1px solid #00ff9f; background-color: #383838; padding:
-    0.25em; outline: 0;}
-    #input::before { content: "> "; color:#00ff9f;text-shadow: 0 0 10px cyan;}
-    body { background-color: #333; font-size: 1.5em; padding: 0em 0.25em; }
-    body,html{height:100%}
-    pre { color: #00b8ff; white-space: pre-wrap; word-wrap: break-word; margin:1rem
-        1rem;text-shadow: 0 0 39px #001eff; }
-    .subheading{color:#0BC4CF;text-shadow:0 0 30px	#0BC4CF}
+  	p{
+      text-shadow: 0 0px 30px #00ff9f;
+      letter-spacing:1px;
+      text-align:center;
+      font-family:Tomorrow,monospace,serif;
+      color:#00ff9f;
+      font-size:1.4rem
+    }
+    #input {
+      border-bottom: 1px solid #00ff9f;
+      background-color: #383838;
+      padding:0.25em;
+      outline: 0;
+      position: relative;
+      width: 100%;
+      top: 0px;
+      height: 20px;
+    }
+    #input::before {
+      content: "> ";
+      color:#00ff9f;
+      text-shadow: 0 0 10px cyan;
+    }
+    body {
+      background-color: #26262b;
+      font-size: 1.5em;
+      padding: 0em 0.25em;
+    }
+    body,html{
+      height:100%
+    }
+    pre {
+      color: #00b8ff;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      margin:1rem 1rem;
+      text-shadow: 0 0 39px #001eff;
+    }
+    .subheading{
+      color:#0BC4CF;
+      text-shadow:0 0 30px	#0BC4CF
+    }
+
     .container{
-        /*height:100%;*/
         display:flex;
         flex-wrap:wrap;
         justify-content:center;
+        display: flow-root;
+        position: relative;
+        bottom: 5px;
+        width: 100%;
+        height: 70%;
+        overflow-y: auto;
+        scroll-behavior: smooth;
     }
-    #log{text-align:center;}
+    #log{
+      text-align:center;
+    }
+
   </style>
   <script>
     function log(message) {
@@ -29,6 +74,12 @@
 	function headertext(msg){
 		document.getElementById("kek").textContent += msg + "\n";
 	}
+  //updating scroll
+  function updateScroll(){
+      var element = document.getElementById("content");
+      element.scrollTop = element.scrollHeight;
+  }
+
   </script>
   <!-- import bugout -->
   <script src="https://chr15m.github.io/bugout/bugout.min.js" type="application/javascript"></script>
@@ -36,12 +87,13 @@
       rel="stylesheet">
 </head>
 <body>
-  <p id="kek"></p>
+  <p id="kek" ></p>
   <p class="subheading">A completely decentralised p2p chat right in your browser</p>
-  <div class="container">
-  <pre id="log"></pre>
+  <div class="container" id="content">
+    <pre id="log"></pre>
   </div>
-  <pre id="input" contenteditable="true" autofocus></pre> 
+  <pre id="input" contenteditable="true" autofocus></pre>
+
 </body>
 <script>
   headertext("Welcome to NeuroChat");
@@ -50,9 +102,14 @@ var b = Bugout("blahblahchat");
 // join room
 b.on("seen", function(address) { log(address + " [connected]"); });
   log(b.address() + " [me]");
+
+//update scrolling
+
+
 //recive message
 b.on("message", function(address, message) {
   log(address + ": " + message);
+  updateScroll();
 });
 //send message
 document.getElementById("input").onkeydown = function(ev) {
@@ -63,6 +120,8 @@ document.getElementById("input").onkeydown = function(ev) {
       }
       ev.preventDefault();
     }
+    updateScroll();
   }
+
 </script>
 </html>
