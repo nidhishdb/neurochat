@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>NeuroChat | Home</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://unpkg.com/augmented-ui/augmented.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=VT323&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #043353;
+        font-family: "VT323", monospace;
+        letter-spacing: 1px;
+        height: 100%;
+      }
+      #heading {
+        color: #faf8f0;
+        font-size: 2.5em;
+        margin: auto;
+        width: 8em;
+        text-align: center;
+        --aug-border: 5px;
+        --aug-inset: 5px;
+        padding: 10px;
+        --aug-border-bg: #faf8f0;
+        --aug-inset-bg: #e44652;
+      }
+      form {
+        margin: auto;
+        text-align: center;
+      }
+      #rn {
+        padding: 0.6em 0em;
+        margin: 0.8em auto;
+      }
+      input {
+        font-family: "VT323", monospace;
+        padding: 0.6em 1.4em;
+        font-size: 1em;
+        color: #043353;
+        background-color: #faf8f0;
+        border: none;
+        margin: auto;
+        width: 200px;
+        text-align: center;
+        --aug-border: 5px;
+        --aug-inset: 5px;
+        padding: 10px;
+      }
+      label {
+        color: #e44652;
+        font-weight: bold;
+        font-size: 1.2em;
+        text-shadow: 0 0px 10px #e44652;
+        margin: auto;
+        width: 50%;
+        text-align: center;
+      }
+      #main {
+        margin: 0;
+        text-align: center;
+        transform: translate(0, 20vh);
+      }
+      #enter {
+        font-family: "VT323", monospace;
+        width: 20em;
+        font-weight: bold;
+        background-color: #e44652;
+        color: #faf8f0;
+        text-shadow: 0 0px 10px #faf8f0;
+      }
+      #pr {
+        margin: auto;
+        width: 3%;
+        text-align: center;
+        padding: 0;
+      }
+      #lpr {
+        margin: 5px;
+      }
+
+      #particles-js canvas {
+        display: block;
+        vertical-align: bottom;
+        -webkit-transform: scale(1);
+        -ms-transform: scale(1);
+        transform: scale(1);
+        opacity: 1;
+        -webkit-transition: opacity 0.8s ease, -webkit-transform 1.4s ease;
+        transition: opacity 0.8s ease, transform 1.4s ease;
+      }
+
+      #particles-js {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        z-index: -10;
+        top: 0;
+        left: 0;
+      }
+    </style>
+    <script>
+      function store() {
+        var roomname = document.getElementById("rn").value;
+
+        sessionStorage.setItem("roomName", roomname);
+      }
+    </script>
+  </head>
+  <div id="particles-js"></div>
+  <body>
+    <div id="main">
+      <div id="heading" augmented-ui="tl-clip br-clip exe">
+        NeuroChat
+      </div>
+      <form action="next.html">
+        <div id="rn">
+          <label for="rc">Room Name : </label> <br />
+          <input
+            type="text"
+            id="rn"
+            augmented-ui="tl-clip br-clip exe"
+            name="rc"
+          />
+        </div>
+        <input
+          type="submit"
+          augmented-ui="tl-clip br-clip exe"
+          id="enter"
+          name="enter"
+          value="Enter Room"
+          onclick="store();"
+        />
+      </form>
+    </div>
+
+    <script src="particles.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
